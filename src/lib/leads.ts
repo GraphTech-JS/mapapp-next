@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendTelegramMessage } from "@/lib/telegram/send";
 
 const recent = new Map<string, number[]>();
 
@@ -62,26 +63,8 @@ async function saveToAdmin(lead: Lead, ip: string): Promise<boolean | null> {
   }
 }
 
-async function notifyTelegram(text: string): Promise<boolean | null> {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) return null;
-  try {
-    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML", disable_web_page_preview: true }),
-    });
-    if (!res.ok) console.error("site-leads: telegram error", res.status, await res.text());
-    return res.ok;
-  } catch (error) {
-    console.error("site-leads: telegram unreachable", error);
-    return false;
-  }
-}
-
 export async function deliverLead(req: Request, lead: Lead, telegramText: string) {
-  const [admin, telegram] = await Promise.all([saveToAdmin(lead, clientIp(req)), notifyTelegram(telegramText)]);
+  const [admin, telegram] = await Promise.all([saveToAdmin(lead, clientIp(req)), sendTelegramMessage(telegramText)]);
   if (admin === null && telegram === null) {
     console.error("site-leads: neither QMAP_API_URL nor Telegram is configured");
     return NextResponse.json({ ok: false }, { status: 500 });
