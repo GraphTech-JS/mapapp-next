@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "QMap: the digital map of your residential complex",
+    "title": "QMaply: the digital map of your residential complex",
     "description": "Cafés, services and shops of your residential complex on an interactive map, down to the section and entrance. Already live in Varshavskyi and Dibrova park."
   },
   "nav": {
@@ -12,7 +12,7 @@
     "download": "Download",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "homeAria": "QuarterMap, go to home page",
+    "homeAria": "QMaply, go to home page",
     "language": "Language",
     "complexes": "Complexes"
   },
@@ -25,7 +25,7 @@
     "chip": "The digital map of your complex",
     "titleStart": "Everything near your home, on a",
     "titleHighlight": "digital map",
-    "lede": "QMap shows the cafés, services and shops of your residential complex down to the section and entrance. Businesses are added in minutes, and the map updates right after moderation.",
+    "lede": "QMaply shows the cafés, services and shops of your residential complex down to the section and entrance. Businesses are added in minutes, and the map updates right after moderation.",
     "business": {
       "title": "Own a business in the complex?",
       "text": "Put your place on the map for free"
@@ -67,10 +67,10 @@
     "Notaries"
   ],
   "problem": {
-    "eyebrow": "Why QMap",
+    "eyebrow": "Why QMaply",
     "questionStart": "You know your complex.",
     "questionHighlight": "But do you know everything it has to offer?",
-    "text": "Cafés, shops, services and other businesses near your home — on one interactive map. QMap helps you find what you need, discover new places and keep up-to-date information at hand.",
+    "text": "Cafés, shops, services and other businesses near your home — on one interactive map. QMaply helps you find what you need, discover new places and keep up-to-date information at hand.",
     "items": [
       {
         "title": "Find what you need in a minute",
@@ -132,7 +132,7 @@
       "search": {
         "eyebrow": "Search & filters",
         "title": "“Open now” right next to your entrance",
-        "text": "Search by name or category. QMap shows what is open right now and sorts places by distance from your building.",
+        "text": "Search by name or category. QMaply shows what is open right now and sorts places by distance from your building.",
         "ticks": [
           "Filters by category and opening hours",
           "Walking minutes across the complex",
@@ -242,11 +242,11 @@
       "date": "Saturday, 10 October",
       "items": [
         {
-          "title": "QMap · New nearby",
+          "title": "QMaply · New nearby",
           "text": "Bread & Cheese Bakery has opened in bldg 4. First coffee is on the house."
         },
         {
-          "title": "QMap · Favourites",
+          "title": "QMaply · Favourites",
           "text": "Nozhytsi Barbershop is now open on Sundays too."
         }
       ]
@@ -282,7 +282,7 @@
   "business": {
     "eyebrow": "For business",
     "title": "Why your business belongs on the complex map",
-    "text": "Your closest customers live a few minutes' walk away. QMap helps them learn you are nearby and find your exact door.",
+    "text": "Your closest customers live a few minutes' walk away. QMaply helps them learn you are nearby and find your exact door.",
     "perks": [
       {
         "icon": "gift",
@@ -322,9 +322,9 @@
       "promoStatus": "Active",
       "verified": "Verified"
     },
-    "stepsTitle": "How to add your business to the QMap map",
+    "stepsTitle": "How to add your business to the QMaply map",
     "steps": [
-      "Sign up in QMap and choose your complex",
+      "Sign up in QMaply and choose your complex",
       "Go to your profile and tap “Open business account”",
       "Tap “Add business” and fill in your place card"
     ],
@@ -350,7 +350,7 @@
       "done": "Done"
     },
     "request": {
-      "title": "Want your business to appear on the QMap map?",
+      "title": "Want your business to appear on the QMaply map?",
       "intro": "Tell us about your business and we will get in touch to discuss the details.",
       "complex": "Complex name",
       "complexPh": "For example, Varshavskyi",
@@ -369,7 +369,7 @@
       "done": "Done"
     },
     "add": {
-      "title": "Download QMap",
+      "title": "Download QMaply",
       "text": "Places are added right in the app, and it only takes a few minutes.",
       "formText": "Would you rather we helped?",
       "formCta": "Leave a request"
@@ -387,7 +387,7 @@
       "contact": "Phone, Telegram or email",
       "contactPh": "+380… or @username",
       "question": "Question",
-      "questionPh": "What would you like to know about QMap?",
+      "questionPh": "What would you like to know about QMaply?",
       "submit": "Send question",
       "sending": "Sending…",
       "error": "We couldn’t send it. Please try again a little later.",
@@ -398,11 +398,11 @@
     },
     "items": [
       {
-        "q": "Is QMap free?",
+        "q": "Is QMaply free?",
         "a": "Yes. Browsing the map, search and notifications are free for residents. Listing a business is free too."
       },
       {
-        "q": "Which complexes is QMap in?",
+        "q": "Which complexes is QMaply in?",
         "a": "Right now in Varshavskyi, where we first launched, and in Dibrova park. You choose your complex in the app and can change it in your profile."
       },
       {
@@ -433,8 +433,8 @@
   },
   "about": {
     "eyebrow": "About",
-    "title": "Who is behind QMap",
-    "p1": "{company} develops QMap, a digital map of residential complexes. We launched in Varshavskyi, added Dibrova park and are ready to connect new complexes. We help residents quickly find services near home and help local businesses get noticed by their neighbours.",
+    "title": "Who is behind QMaply",
+    "p1": "{company} develops QMaply, a digital map of residential complexes. We launched in Varshavskyi, added Dibrova park and are ready to connect new complexes. We help residents quickly find services near home and help local businesses get noticed by their neighbours.",
     "p2": "Our goal is simple: information about life in every complex should be accurate, gathered in one place and available to all residents."
   },
   "footer": {
@@ -1241,7 +1241,7 @@
     "dbRegion": "the European Union"
   },
   "complexes": {
-    "eyebrow": "Where QMap works",
+    "eyebrow": "Where QMaply works",
     "title": "One app for different complexes",
     "text": "Pick your complex and see only its businesses, services and routes. We launched in Varshavskyi and have already added Dibrova park.",
     "choose": "Choose a complex",
@@ -1249,14 +1249,14 @@
     "yours": "+ Your complex",
     "open": "Open in the app",
     "openModal": {
-      "title": "Open {name} in QMap",
+      "title": "Open {name} in QMaply",
       "text": "Install the app and choose {name} in the list of complexes. The map with all places, entrances and routes opens right away."
     },
     "items": {
       "varshavskyi": {
         "name": "Varshavskyi",
-        "badge": "First on QMap",
-        "text": "Where QMap started. The map shows buildings, sections and entrances, plus cafés, pharmacies, shops and services with opening hours and a route to the right door.",
+        "badge": "First on QMaply",
+        "text": "Where QMaply started. The map shows buildings, sections and entrances, plus cafés, pharmacies, shops and services with opening hours and a route to the right door.",
         "pins": [
           {
             "name": "Zerno Coffee",
@@ -1288,7 +1288,7 @@
       "dibrova": {
         "name": "Dibrova park",
         "badge": "Just added",
-        "text": "The newest complex on QMap. Residents can already see places on the map, and business owners add their cards, hours and photos for free.",
+        "text": "The newest complex on QMaply. Residents can already see places on the map, and business owners add their cards, hours and photos for free.",
         "pins": [
           {
             "name": "Acorn Coffee",
@@ -1319,7 +1319,7 @@
       }
     },
     "request": {
-      "title": "Want QMap in your complex?",
+      "title": "Want QMaply in your complex?",
       "text": "We connect complexes on request from a homeowners' association, management company, developer or a group of residents. We digitise the plan of buildings, sections and entrances ourselves.",
       "steps": [
         "Send a request with the complex name and address",
@@ -1328,7 +1328,7 @@
       ],
       "cta": "Send a request",
       "form": {
-        "title": "Want QMap in your complex?",
+        "title": "Want QMaply in your complex?",
         "intro": "Tell us about your complex and we will get in touch to discuss connecting it.",
         "complex": "Complex name",
         "complexPh": "For example, Varshavskyi",
@@ -1367,7 +1367,7 @@
     "clear": "Clear address"
   },
   "downloadModal": {
-    "title": "Download QMap",
+    "title": "Download QMaply",
     "text": "Choose your complex in the app and instantly see every place, entrance and route near your home."
   }
 }

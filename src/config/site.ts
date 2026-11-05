@@ -1,7 +1,7 @@
 export const site = {
-  app: "QMap",
-  appFull: "QuarterMap",
-  url: process.env.SITE_URL ?? "https://qmap.example.com",
+  app: "QMaply",
+  appFull: "QMaply",
+  url: process.env.SITE_URL ?? "https://qmaply.example.com",
   company: "IT Zeyz",
   companyId: "[ЄДРПОУ / РНОКПП]",
   address: "[Юридична адреса, Київ, Україна]",

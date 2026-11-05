@@ -13,7 +13,7 @@ const ITEMS = [
   {
     key: "map",
     screen: (
-      <PhoneScreenshot src="/screens/map-v3.png" alt="QMap" width={860} height={1747}>
+      <PhoneScreenshot src="/screens/map-v3.png" alt="QMaply" width={860} height={1747}>
         <MapZoomDemo src="/screens/map-v3-layer.jpg" mask="/screens/map-v3-mask.png" />
       </PhoneScreenshot>
     ),
@@ -21,7 +21,7 @@ const ITEMS = [
   {
     key: "add",
     screen: (
-      <PhoneScreenshot src="/screens/add-v2.png" alt="QMap" width={860} height={1747}>
+      <PhoneScreenshot src="/screens/add-v2.png" alt="QMaply" width={860} height={1747}>
         <AddFormDemo />
       </PhoneScreenshot>
     ),
@@ -30,7 +30,7 @@ const ITEMS = [
   {
     key: "search",
     screen: (
-      <PhoneScreenshot src="/screens/search-phone.png" alt="QMap" width={424} height={865}>
+      <PhoneScreenshot src="/screens/search-phone.png" alt="QMaply" width={424} height={865}>
         <SearchDemo src="/screens/search-phone.png" />
       </PhoneScreenshot>
     ),
@@ -38,7 +38,7 @@ const ITEMS = [
   {
     key: "notify",
     screen: (
-      <PhoneScreenshot src="/screens/news-qmap.png" alt="QMap" width={424} height={865}>
+      <PhoneScreenshot src="/screens/news-qmap.png" alt="QMaply" width={424} height={865}>
         <NotifyDemo />
       </PhoneScreenshot>
     ),

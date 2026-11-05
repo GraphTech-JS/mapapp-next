@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-const HEAD = "Quarter";
-const TAIL = "Map";
+const HEAD = "Q";
+const TAIL = "Maply";
 const TOTAL = HEAD.length + TAIL.length;
 
 export default function TypingLogo({ className = "text-xl" }: { className?: string }) {
