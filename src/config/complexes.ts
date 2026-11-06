@@ -7,6 +7,16 @@ export type Layout = {
   pinBuildings: number[];
 };
 
+export type ComplexGeo = {
+  latitude: number;
+  longitude: number;
+  streetAddress: string;
+  addressLocality: string;
+  addressRegion: string;
+  postalCode: string;
+  addressCountry: "UA";
+};
+
 export const LAYOUTS: Record<"a" | "b", Layout> = {
   a: {
     roads: [{ x: 0, y: 200, w: 440, h: 36, dir: "h" }, { x: 256, y: 0, w: 32, h: 440, dir: "v" }],
@@ -35,8 +45,32 @@ export const LAYOUTS: Record<"a" | "b", Layout> = {
 };
 
 export const COMPLEXES = [
-  { id: "varshavskyi", layout: "a" },
-  { id: "dibrova", layout: "b" },
-] as const satisfies readonly { id: string; layout: keyof typeof LAYOUTS }[];
+  {
+    id: "varshavskyi",
+    layout: "a",
+    geo: {
+      latitude: 50.5018,
+      longitude: 30.4148,
+      streetAddress: "просп. Європейського Союзу",
+      addressLocality: "Київ",
+      addressRegion: "Київ",
+      postalCode: "04213",
+      addressCountry: "UA",
+    },
+  },
+  {
+    id: "dibrova",
+    layout: "b",
+    geo: {
+      latitude: 50.4915,
+      longitude: 30.419,
+      streetAddress: "вул. Віктора Некрасова, 57",
+      addressLocality: "Київ",
+      addressRegion: "Київ",
+      postalCode: "04136",
+      addressCountry: "UA",
+    },
+  },
+] as const satisfies readonly { id: string; layout: keyof typeof LAYOUTS; geo: ComplexGeo }[];
 
 export type ComplexId = (typeof COMPLEXES)[number]["id"];

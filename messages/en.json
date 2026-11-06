@@ -1,7 +1,9 @@
 {
   "meta": {
     "title": "QMaply: the digital map of your residential complex",
-    "description": "Cafés, services and shops of your residential complex on an interactive map, down to the section and entrance. Already live in Varshavskyi and Dibrova park."
+    "description": "Cafés, services and shops of your residential complex on an interactive map, down to the section and entrance. Already live in Varshavskyi and Dibrova park.",
+    "ogAlt": "QMaply — local residential complex map for businesses and residents",
+    "keywords": "QMaply, residential complex map, Varshavskyi, Dibrova park, Kyiv, local business, complex map, nearby services"
   },
   "nav": {
     "label": "Sections",
