@@ -36,12 +36,12 @@ Node.js 20.9 або новіший.
 
 | Поле | URL |
 |---|---|
-| Privacy Policy (Apple, Google) | `https://ваш-домен/privacy` |
-| Support URL (Apple) | `https://ваш-домен/support` |
-| Marketing URL (Apple) | `https://ваш-домен/` |
-| Delete account URL (Google Play → Data safety) | `https://ваш-домен/delete-account` |
-| Terms / EULA | `https://ваш-домен/terms` |
-| Правила контенту (UGC, Apple 1.2) | `https://ваш-домен/content-rules` |
+| Privacy Policy (Apple, Google) | `https://qmaply.com/privacy` |
+| Support URL (Apple) | `https://qmaply.com/support` |
+| Marketing URL (Apple) | `https://qmaply.com/` |
+| Delete account URL (Google Play → Data safety) | `https://qmaply.com/delete-account` |
+| Terms / EULA | `https://qmaply.com/terms` |
+| Правила контенту (UGC, Apple 1.2) | `https://qmaply.com/content-rules` |
 
 Англійські версії доступні з префіксом `/en/...`.
 
