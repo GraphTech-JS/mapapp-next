@@ -56,8 +56,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       images: [
         {
           url: "/og.jpg",
-          width: 1080,
-          height: 1080,
+          width: 1280,
+          height: 720,
           alt: t("ogAlt"),
           type: "image/jpeg",
         },
