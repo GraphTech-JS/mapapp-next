@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="15" fill="#FF6B1A"/>
-  <path d="M32 11c-8.6 0-15.2 6.5-15.2 14.9C16.8 37 32 52 32 52s15.2-15 15.2-26.1C47.2 17.5 40.6 11 32 11z" fill="#fff"/>
-  <circle cx="32" cy="25.8" r="6" fill="#FF6B1A"/>
-  <ellipse cx="32" cy="55.5" rx="7" ry="2" fill="#fff" opacity=".55"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><rect width="1024" height="1024" rx="228" fill="#F97316"/><rect x="180" y="180" width="192" height="192" rx="40" fill="#fff" fill-opacity=".25"/><rect x="416" y="180" width="192" height="192" rx="40" fill="#fff" fill-opacity=".25"/><rect x="652" y="180" width="192" height="192" rx="40" fill="#fff" fill-opacity=".25"/><rect x="180" y="416" width="192" height="192" rx="40" fill="#fff" fill-opacity=".25"/><rect x="416" y="416" width="192" height="192" rx="40" fill="#fff"/><rect x="652" y="416" width="192" height="192" rx="40" fill="#fff" fill-opacity=".25"/><rect x="180" y="652" width="192" height="192" rx="40" fill="#fff" fill-opacity=".25"/><rect x="416" y="652" width="192" height="192" rx="40" fill="#fff" fill-opacity=".25"/><rect x="652" y="652" width="192" height="192" rx="40" fill="#fff" fill-opacity=".25"/><path d="M512 582L470.4 519.8A50 50 0 1 1 553.6 519.8Z" fill="#28272C"/><circle cx="512" cy="492" r="17" fill="#fff"/></svg>

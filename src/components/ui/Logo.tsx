@@ -1,9 +1,18 @@
 export function LogoMark({ className = "size-[30px]" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" aria-hidden="true" className={className}>
-      <rect width="32" height="32" rx="9" fill="#FF6B1A" />
-      <path d="M16 6.5c-4.1 0-7.2 3.1-7.2 7 0 5.2 7.2 12 7.2 12s7.2-6.8 7.2-12c0-3.9-3.1-7-7.2-7z" fill="#fff" />
-      <circle cx="16" cy="13.4" r="2.8" fill="#FF6B1A" />
+    <svg viewBox="0 0 1024 1024" aria-hidden="true" className={className}>
+      <rect width="1024" height="1024" rx="228" fill="#F97316" />
+      <rect x="180" y="180" width="192" height="192" rx="40" fill="#fff" fillOpacity={0.25} />
+      <rect x="416" y="180" width="192" height="192" rx="40" fill="#fff" fillOpacity={0.25} />
+      <rect x="652" y="180" width="192" height="192" rx="40" fill="#fff" fillOpacity={0.25} />
+      <rect x="180" y="416" width="192" height="192" rx="40" fill="#fff" fillOpacity={0.25} />
+      <rect x="416" y="416" width="192" height="192" rx="40" fill="#fff" />
+      <rect x="652" y="416" width="192" height="192" rx="40" fill="#fff" fillOpacity={0.25} />
+      <rect x="180" y="652" width="192" height="192" rx="40" fill="#fff" fillOpacity={0.25} />
+      <rect x="416" y="652" width="192" height="192" rx="40" fill="#fff" fillOpacity={0.25} />
+      <rect x="652" y="652" width="192" height="192" rx="40" fill="#fff" fillOpacity={0.25} />
+      <path d="M512 582L470.4 519.8A50 50 0 1 1 553.6 519.8Z" fill="#28272C" />
+      <circle cx="512" cy="492" r="17" fill="#fff" />
     </svg>
   );
 }
