@@ -2,19 +2,21 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const W = 424;
-const H = 865;
+const W = 1342;
+const H = 2738;
+const OX = 68;
+const OY = 58;
 const box = (x1: number, y1: number, x2: number, y2: number) => ({
-  left: `${(x1 / W) * 100}%`,
-  top: `${(y1 / H) * 100}%`,
+  left: `${((x1 + OX) / W) * 100}%`,
+  top: `${((y1 + OY) / H) * 100}%`,
   width: `${((x2 - x1) / W) * 100}%`,
   height: `${((y2 - y1) / H) * 100}%`,
 });
 
-const QUERY = "Епіцентр";
-const FIELD = box(90, 78, 300, 107);
-const LIST = box(21, 195, 403, 848);
-const CARD = { x1: 37, y1: 365, x2: 387, y2: 456, to: 207 };
+const QUERY = "Нова Пошта";
+const FIELD = box(220, 198, 1000, 290);
+const LIST = box(0, 480, 1206, 2622);
+const CARD = { x1: 48 + OX, y1: 1764 + OY, x2: 1157 + OX, y2: 2051 + OY, to: 505 + OY };
 const cardW = CARD.x2 - CARD.x1;
 const cardH = CARD.y2 - CARD.y1;
 
@@ -81,7 +83,7 @@ export default function SearchDemo({ src }: { src: string }) {
       {phase !== "idle" && (
         <div
           style={FIELD}
-          className={`absolute flex items-center bg-[#F4F3F2] pl-[1.2cqw] transition-opacity duration-300 ${showText ? "" : "opacity-0"}`}
+          className={`absolute flex items-center bg-[#F5F5F4] pl-[0.9cqw] transition-opacity duration-300 ${showText ? "" : "opacity-0"}`}
         >
           {QUERY.slice(0, typed)}
           <span className="ml-px inline-block h-[1.15em] w-[0.45cqw] animate-caret bg-[#3478F6]" />
@@ -90,7 +92,7 @@ export default function SearchDemo({ src }: { src: string }) {
 
       <div
         style={LIST}
-        className={`absolute rounded-b-[11.8cqw] bg-[#F9F6F1] transition-opacity duration-400 ${filtered ? "opacity-100" : "opacity-0"}`}
+        className={`absolute rounded-b-[12.7cqw] bg-[#FAF7F2] transition-opacity duration-400 ${filtered ? "opacity-100" : "opacity-0"}`}
       />
 
       <div
@@ -100,7 +102,7 @@ export default function SearchDemo({ src }: { src: string }) {
           width: `${(cardW / W) * 100}%`,
           height: `${(cardH / H) * 100}%`,
         }}
-        className={`absolute overflow-hidden rounded-[2.9cqw] transition-[top] duration-500 ease-out ${
+        className={`absolute overflow-hidden rounded-[3cqw] transition-[top] duration-500 ease-out ${
           phase === "filtered" || phase === "reset" ? "opacity-100" : "opacity-0"
         }`}
       >

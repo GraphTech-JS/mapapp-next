@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
-import { isPlaceholder } from "@/config/site";
+import { isPlaceholder, site } from "@/config/site";
 
 export type Vars = Record<string, string | number>;
 
@@ -14,6 +14,12 @@ function renderVar(name: string, vars: Vars, key: string): ReactNode {
   if (name === "email")
     return (
       <a key={key} href={`mailto:${str}`} className="text-orange-deep underline underline-offset-3">
+        {str}
+      </a>
+    );
+  if (name === "company" && site.companyUrl)
+    return (
+      <a key={key} href={site.companyUrl} target="_blank" rel="noopener noreferrer" className="text-orange-deep underline underline-offset-3 hover:text-orange">
         {str}
       </a>
     );

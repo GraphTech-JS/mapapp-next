@@ -13,8 +13,8 @@ const ITEMS = [
   {
     key: "map",
     screen: (
-      <PhoneScreenshot src="/screens/map-v3.png" alt="QMaply" width={860} height={1747}>
-        <MapZoomDemo src="/screens/map-v3-layer.jpg" mask="/screens/map-v3-mask.png" />
+      <PhoneScreenshot src="/screens/map-v4.png" alt="QMaply" width={860} height={1755}>
+        <MapZoomDemo src="/screens/map-v4-layer.jpg" mask="/screens/map-v4-mask.png" />
       </PhoneScreenshot>
     ),
   },
@@ -30,15 +30,15 @@ const ITEMS = [
   {
     key: "search",
     screen: (
-      <PhoneScreenshot src="/screens/search-phone.png" alt="QMaply" width={424} height={865}>
-        <SearchDemo src="/screens/search-phone.png" />
+      <PhoneScreenshot src="/screens/search-v2.png" alt="QMaply" width={860} height={1755}>
+        <SearchDemo src="/screens/search-v2.png" />
       </PhoneScreenshot>
     ),
   },
   {
     key: "notify",
     screen: (
-      <PhoneScreenshot src="/screens/news-qmap.png" alt="QMaply" width={424} height={865}>
+      <PhoneScreenshot src="/screens/news-v2.png" alt="QMaply" width={860} height={1755}>
         <NotifyDemo />
       </PhoneScreenshot>
     ),

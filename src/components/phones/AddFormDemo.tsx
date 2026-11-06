@@ -124,7 +124,7 @@ function MapReveal({ open }: { open: boolean }) {
         className={`absolute inset-0 transition-[translate,visibility] duration-500 ease-[cubic-bezier(.25,.9,.3,1)] ${open ? "visible translate-x-0" : "invisible translate-x-full"}`}
       >
         <div
-          style={{ backgroundImage: "url(/screens/map-v3.png)", width: "111.54%", height: "104.54%", left: "-5.77%", top: "-2.27%" }}
+          style={{ backgroundImage: "url(/screens/map-v4.png)", width: "111.28%", height: "104.42%", left: "-5.64%", top: "-2.21%" }}
           className="absolute bg-[length:100%_100%]"
         />
 

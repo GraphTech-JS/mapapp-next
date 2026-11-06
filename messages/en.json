@@ -298,8 +298,8 @@
       },
       {
         "icon": "bell",
-        "title": "Opening announcement",
-        "text": "When you appear on the map, residents get a push notification."
+        "title": "Notifications for residents",
+        "text": "When you appear on the map or post an offer or news about your place, residents get a push notification."
       },
       {
         "icon": "pin",
@@ -478,7 +478,7 @@
           },
           {
             "type": "p",
-            "text": "Owner of personal data: {company}, {companyId}, registered address: {address}. Email for personal data questions: {email}."
+            "text": "Owner of personal data: {owner}, {companyId}, registered address: {address}. Email for personal data questions: {email}."
           },
           {
             "type": "h2",
@@ -644,8 +644,7 @@
               "require correction or destruction of inaccurate or unlawfully processed data;",
               "object to the processing of your data;",
               "withdraw consent at any time (for example, by turning off location or notifications in the phone settings, or by deleting your account);",
-              "protect your data against unlawful processing and claim compensation for damage;",
-              "complain to the Ukrainian Parliament Commissioner for Human Rights ([ombudsman.gov.ua](https://ombudsman.gov.ua)) or go to court."
+              "protect your data against unlawful processing."
             ]
           },
           {
@@ -662,15 +661,7 @@
           },
           {
             "type": "h2",
-            "text": "9. Children"
-          },
-          {
-            "type": "p",
-            "text": "The Service is not intended for people under 16. We do not knowingly process their data. If you think a child has given us their data, write to {email} and we will delete it."
-          },
-          {
-            "type": "h2",
-            "text": "10. Security"
+            "text": "9. Security"
           },
           {
             "type": "p",
@@ -678,7 +669,7 @@
           },
           {
             "type": "h2",
-            "text": "11. Summary for the App Store and Google Play"
+            "text": "10. Summary for the App Store and Google Play"
           },
           {
             "type": "table",
@@ -733,7 +724,7 @@
           },
           {
             "type": "h2",
-            "text": "12. Changes to this Policy"
+            "text": "11. Changes to this Policy"
           },
           {
             "type": "p",
@@ -741,11 +732,11 @@
           },
           {
             "type": "h2",
-            "text": "13. Contacts"
+            "text": "12. Contacts"
           },
           {
             "type": "p",
-            "text": "{company}, {companyId}, {address}. Email: {email}."
+            "text": "{owner}, {companyId}, {address}. Email: {email}."
           }
         ]
       },
@@ -758,7 +749,7 @@
           },
           {
             "type": "p",
-            "text": "These Terms are an agreement between you and {company}, {companyId} (“we”) on the use of the **{app}** app and the website {domain} (together, the “Service”). They are an electronic contract under the Law of Ukraine “On Electronic Commerce”."
+            "text": "These Terms are an agreement between you and {owner}, {companyId} (“we”) on the use of the **{app}** app and the website {domain} (together, the “Service”). They are an electronic contract under the Law of Ukraine “On Electronic Commerce”."
           },
           {
             "type": "note",
@@ -901,7 +892,7 @@
           },
           {
             "type": "p",
-            "text": "{company}, {companyId}, {address}. Email: {email}."
+            "text": "{owner}, {companyId}, {address}. Email: {email}."
           }
         ]
       },
@@ -992,7 +983,7 @@
         "blocks": [
           {
             "type": "p",
-            "text": "This page explains how to delete your **{app}** account and the data linked to it. Developer: {company}."
+            "text": "This page explains how to delete your **{app}** account and the data linked to it. Developer: {owner}."
           },
           {
             "type": "h2",
@@ -1155,7 +1146,7 @@
           },
           {
             "type": "p",
-            "text": "{company}, {companyId}, {address}."
+            "text": "{owner}, {companyId}, {address}."
           }
         ]
       },
@@ -1240,7 +1231,11 @@
         ]
       }
     },
-    "dbRegion": "the European Union"
+    "dbRegion": "the European Union",
+    "owner": "Sole proprietor Andrii Viktorovych Zahorulko",
+    "ownerId": "tax ID 3502111595",
+    "ownerAddress": "Kyiv, Ukraine",
+    "mapProvider": "MapLibre and Protomaps (map data © OpenStreetMap)"
   },
   "complexes": {
     "eyebrow": "Where QMaply works",

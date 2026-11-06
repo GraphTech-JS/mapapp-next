@@ -6,7 +6,7 @@ const HEAD = "Q";
 const TAIL = "Maply";
 const TOTAL = HEAD.length + TAIL.length;
 
-export default function TypingLogo({ className = "text-xl" }: { className?: string }) {
+export default function TypingLogo({ className = "text-[22px]" }: { className?: string }) {
   const [n, setN] = useState(0);
   const [caret, setCaret] = useState(true);
 

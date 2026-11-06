@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { LogoMark } from "@/components/ui/Logo";
 
-const W = 424;
-const H = 865;
+const W = 1342;
+const H = 2738;
 const SCREEN = {
-  left: `${(21 / W) * 100}%`,
-  top: `${(17 / H) * 100}%`,
-  width: `${((403 - 21) / W) * 100}%`,
-  height: `${((848 - 17) / H) * 100}%`,
+  left: `${(68 / W) * 100}%`,
+  top: `${(58 / H) * 100}%`,
+  width: `${(1206 / W) * 100}%`,
+  height: `${(2622 / H) * 100}%`,
 };
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
