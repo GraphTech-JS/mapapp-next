@@ -67,10 +67,10 @@ export default function NotifyDemo() {
           <LogoMark className="size-[9.5cqw] flex-none" />
           <div className="min-w-0 flex-1 leading-tight">
             <div className="flex items-baseline justify-between gap-2">
-              <b className="truncate text-[3.3cqw] text-ink">Відкрився заклад «Ранок»</b>
+              <b className="truncate text-[3.3cqw] text-ink">У дворі відкрилась кав'ярня Bloom</b>
               <span className="flex-none text-[2.7cqw] text-ink-3">зараз</span>
             </div>
-            <p className="mt-[0.6cqw] text-[3cqw] text-ink-2">Кав'ярня у Варшавському масиві, буд. 3. Подивіться на мапі</p>
+            <p className="mt-[0.6cqw] text-[3cqw] text-ink-2">Specialty coffee і круасани на вул. Родини Крістерів, 20.</p>
           </div>
         </div>
       </div>

@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import Container from "@/components/ui/Container";
 import SectionHead from "@/components/ui/SectionHead";
-// import { FreshScreen } from "@/components/phones/Screens";
 import { PhoneScreenshot } from "@/components/phones/Phone";
 import MapZoomDemo from "@/components/phones/MapZoomDemo";
 import SearchDemo from "@/components/phones/SearchDemo";
@@ -17,7 +16,6 @@ const ITEMS = [
       </PhoneScreenshot>
     ),
   },
-  // { key: "fresh", screen: <FreshScreen /> },
   {
     key: "search",
     screen: (
@@ -29,7 +27,7 @@ const ITEMS = [
   {
     key: "notify",
     screen: (
-      <PhoneScreenshot src="/screens/news-v2.png" alt="QMaply" width={860} height={1755}>
+      <PhoneScreenshot src="/screens/news.png" alt="QMaply" width={860} height={1755}>
         <NotifyDemo />
       </PhoneScreenshot>
     ),
