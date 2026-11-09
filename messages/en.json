@@ -158,10 +158,7 @@
       "name": "Zerno Coffee",
       "open": "Open until 21:00",
       "where": "Building 3 · section 2 · street entrance",
-      "tags": [
-        "Coffee",
-        "Pastry"
-      ],
+      "tags": ["Coffee", "Pastry"],
       "walk": "2 min walk",
       "route": "Route",
       "call": "Call"
@@ -171,12 +168,7 @@
       "title": "Where can people find you?",
       "nameLabel": "Name",
       "nameValue": "Nozhytsi Barbershop",
-      "cats": [
-        "Beauty",
-        "Food",
-        "Service",
-        "Kids"
-      ],
+      "cats": ["Beauty", "Food", "Service", "Kids"],
       "building": "Building",
       "section": "Section",
       "entrance": "Entrance",
@@ -215,11 +207,7 @@
     },
     "search": {
       "query": "pharmacy",
-      "chips": [
-        "Open now",
-        "Nearby",
-        "Health"
-      ],
+      "chips": ["Open now", "Nearby", "Health"],
       "count": "3 results",
       "items": [
         {
@@ -445,7 +433,7 @@
   "about": {
     "eyebrow": "About",
     "title": "Who is behind QMaply",
-    "p1": "{company} develops QMaply, a digital map of residential complexes. We launched in Varshavskyi, added Dibrova park and are ready to connect new complexes. We help residents quickly find services near home and help local businesses get noticed by their neighbours.",
+    "p1": "{company} develops QMaply, a digital map of residential complexes. We launched in Varshavskyi, are already connecting Dibrova park and are ready to connect new complexes. We help residents quickly find services near home and help local businesses get noticed by their neighbours.",
     "p2": "Our goal is simple: information about life in every complex should be accurate, gathered in one place and available to all residents."
   },
   "footer": {
@@ -536,11 +524,7 @@
           },
           {
             "type": "table",
-            "head": [
-              "Purpose",
-              "Data",
-              "Legal ground"
-            ],
+            "head": ["Purpose", "Data", "Legal ground"],
             "rows": [
               [
                 "Registering and maintaining your account",
@@ -682,19 +666,9 @@
           },
           {
             "type": "table",
-            "head": [
-              "Data type",
-              "Processed",
-              "Linked to you",
-              "Tracking"
-            ],
+            "head": ["Data type", "Processed", "Linked to you", "Tracking"],
             "rows": [
-              [
-                "Contact info (name, email, phone)",
-                "Yes",
-                "Yes",
-                "No"
-              ],
+              ["Contact info (name, email, phone)", "Yes", "Yes", "No"],
               [
                 "User content (business data, photos, messages)",
                 "Yes",
@@ -707,24 +681,9 @@
                 "No",
                 "No"
               ],
-              [
-                "Identifiers (account ID, push token)",
-                "Yes",
-                "Yes",
-                "No"
-              ],
-              [
-                "Diagnostics (crashes)",
-                "Yes",
-                "Yes (installation ID)",
-                "No"
-              ],
-              [
-                "Usage data",
-                "Yes",
-                "Yes",
-                "No"
-              ]
+              ["Identifiers (account ID, push token)", "Yes", "Yes", "No"],
+              ["Diagnostics (crashes)", "Yes", "Yes (installation ID)", "No"],
+              ["Usage data", "Yes", "Yes", "No"]
             ]
           },
           {
@@ -1184,12 +1143,7 @@
           },
           {
             "type": "table",
-            "head": [
-              "Name",
-              "Purpose",
-              "Type",
-              "Duration"
-            ],
+            "head": ["Name", "Purpose", "Type", "Duration"],
             "rows": [
               [
                 "NEXT_LOCALE",
@@ -1249,9 +1203,10 @@
   "complexes": {
     "eyebrow": "Where QMaply works",
     "title": "One app for different complexes",
-    "text": "Pick your complex and see only its businesses, services and routes. We launched in Varshavskyi and have already added Dibrova park.",
+    "text": "Pick your complex and see only its businesses, services and routes. We launched in Varshavskyi and are already connecting Dibrova park.",
     "choose": "Choose a complex",
     "live": "Live",
+    "connecting": "Connecting",
     "yours": "+ Your complex",
     "open": "Open in the app",
     "openModal": {

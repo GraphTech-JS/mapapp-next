@@ -11,9 +11,15 @@ import Complexes from "@/components/sections/Complexes";
 import Faq from "@/components/sections/Faq";
 import About from "@/components/sections/About";
 
-export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(hasLocale(routing.locales, locale) ? locale : routing.defaultLocale);
+  setRequestLocale(
+    hasLocale(routing.locales, locale) ? locale : routing.defaultLocale,
+  );
   return (
     <main>
       <Hero />
