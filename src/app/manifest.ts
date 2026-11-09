@@ -3,7 +3,7 @@ import { site } from "@/config/site";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${site.app}: цифрова карта вашого ЖК`,
+    name: `${site.app}: цифрова мапа вашого ЖК`,
     short_name: site.app,
     start_url: "/",
     display: "standalone",

@@ -62,7 +62,7 @@ src/app/[locale]/      головна, [doc]: privacy | terms | content-rules | 
 src/app/sitemap.ts     sitemap.xml для обох мов
 src/components/
   layout/              Header (мобільне меню), Footer, LanguageSwitcher
-  sections/            Hero, IsoMap (3D-карта з перемикачем ЖК), Marquee, Problem, Features,
+  sections/            Hero, IsoMap (3D-мапа з перемикачем ЖК), Marquee, Problem, Features,
                        ForBusiness (переваги для бізнесу), Complexes (ЖК і заявка), HowItWorks, Faq, About
   phones/              макети екранів застосунку
   legal/               рендер документів, кнопка копіювання

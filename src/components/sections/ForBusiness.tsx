@@ -5,6 +5,9 @@ import StoreBadges from "@/components/ui/StoreBadges";
 import BusinessQuestionModal from "./BusinessQuestionModal";
 import BusinessRequestModal from "./BusinessRequestModal";
 import Container from "@/components/ui/Container";
+import { PhoneScreenshot } from "@/components/phones/Phone";
+import AddFormDemo from "@/components/phones/AddFormDemo";
+import PostDemo from "@/components/phones/PostDemo";
 
 type Perk = { icon: string; title: string; text: string };
 
@@ -22,6 +25,7 @@ export default async function ForBusiness() {
   const t = await getTranslations("business");
   const perks = t.raw("perks") as Perk[];
   const steps = t.raw("steps") as string[];
+  const postSteps = t.raw("post.steps") as string[];
   return (
     <section id="business" className="pb-12 sm:pb-16">
       <Container>
@@ -45,7 +49,8 @@ export default async function ForBusiness() {
             </ul>
           </div>
 
-          <div className="mt-8 flex flex-col gap-5 rounded-[24px] bg-white p-5 text-ink sm:p-7">
+          <div className="group mt-8 grid gap-8 rounded-[24px] bg-white p-5 text-ink sm:p-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-12">
+          <div className="flex min-w-0 flex-col gap-5">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <b className="font-display text-xl">{t("stepsTitle")}</b>
               <div className="flex flex-wrap gap-2.5">
@@ -81,7 +86,7 @@ export default async function ForBusiness() {
                 <BusinessQuestionModal trigger={t("ctaAlt")} />
               </div>
             </div>
-            <ol className="grid gap-3 sm:grid-cols-3 sm:gap-5">
+            <ol className="grid gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-1 lg:gap-3">
               {steps.map((s, i) => (
                 <li key={s} className="flex items-start gap-3 rounded-2xl bg-tint p-4 text-[15px] font-medium">
                   <span className="grid size-7 flex-none place-items-center rounded-full bg-orange font-display text-[13px] font-bold text-white">{i + 1}</span>
@@ -90,6 +95,34 @@ export default async function ForBusiness() {
               ))}
             </ol>
             <p className="text-sm text-ink-3">{t("note")}</p>
+          </div>
+          <div className="relative grid min-w-0 place-items-center">
+            <div aria-hidden className="absolute aspect-square w-[78%] max-w-[380px] rounded-full bg-[radial-gradient(circle,var(--color-tint-2),transparent_70%)]" />
+            <PhoneScreenshot src="/screens/add-v2.png" alt="QMaply" width={860} height={1747}>
+              <AddFormDemo />
+            </PhoneScreenshot>
+          </div>
+          </div>
+
+          <div className="group mt-4 grid gap-8 rounded-[24px] bg-white p-5 text-ink sm:p-7 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-12">
+          <div className="flex min-w-0 flex-col gap-5 lg:order-2">
+            <b className="font-display text-xl">{t("post.title")}</b>
+            <ol className="grid gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-1 lg:gap-3">
+              {postSteps.map((s, i) => (
+                <li key={s} className="flex items-start gap-3 rounded-2xl bg-tint p-4 text-[15px] font-medium">
+                  <span className="grid size-7 flex-none place-items-center rounded-full bg-orange font-display text-[13px] font-bold text-white">{i + 1}</span>
+                  {s}
+                </li>
+              ))}
+            </ol>
+            <p className="text-sm text-ink-3">{t("post.note")}</p>
+          </div>
+          <div className="relative grid min-w-0 place-items-center">
+            <div aria-hidden className="absolute aspect-square w-[78%] max-w-[380px] rounded-full bg-[radial-gradient(circle,var(--color-tint-2),transparent_70%)]" />
+            <PhoneScreenshot src="/screens/post-v1.png" alt="QMaply" width={860} height={1747}>
+              <PostDemo />
+            </PhoneScreenshot>
+          </div>
           </div>
         </div>
       </Container>

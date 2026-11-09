@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { coord, deliverLead, esc, rateLimited, readForm, str } from "@/lib/leads";
+import { coord, deliverLead, esc, parseContact, rateLimited, readForm, str } from "@/lib/leads";
 
 export async function POST(req: Request) {
   const body = await readForm(req);
@@ -15,12 +15,8 @@ export async function POST(req: Request) {
   const latitude = coord(body.latitude, 90);
   const longitude = coord(body.longitude, 180);
   const hasPoint = latitude !== undefined && longitude !== undefined;
-  const digits = contact.replace(/\D/g, "");
-  const isPhone = /^\+?[0-9\s\-()]+$/.test(contact) && digits.length >= 10 && digits.length <= 15;
-  const username = contact.replace(/^(https?:\/\/)?t\.me\//i, "").replace(/^@/, "");
-  const isTelegram = !isPhone && /^[A-Za-z0-9_]{5,32}$/.test(username);
-  if (!complex || !address || !name || (!isPhone && !isTelegram))
-    return NextResponse.json({ ok: false }, { status: 400 });
+  const parsed = parseContact(contact);
+  if (!complex || !address || !name || !parsed) return NextResponse.json({ ok: false }, { status: 400 });
   if (rateLimited(req)) return NextResponse.json({ ok: false }, { status: 429 });
 
   const text = [
@@ -30,9 +26,7 @@ export async function POST(req: Request) {
     `<b>Адреса:</b> ${esc(address)}`,
     ...(hasPoint ? [`<b>Мапа:</b> <a href="https://www.google.com/maps?q=${latitude},${longitude}">${latitude}, ${longitude}</a>`] : []),
     `<b>Ім'я:</b> ${esc(name)}`,
-    isTelegram
-      ? `<b>Telegram:</b> <a href="https://t.me/${username}">@${username}</a>`
-      : `<b>Телефон:</b> ${esc(contact)}`,
+    parsed.html,
     ...(comment ? [`<b>Коментар:</b> ${esc(comment)}`] : []),
   ].join("\n");
 
@@ -41,7 +35,7 @@ export async function POST(req: Request) {
     {
       type: "complex",
       name,
-      contact: isTelegram ? `@${username}` : contact,
+      contact: parsed.value,
       complex,
       address,
       message: comment,

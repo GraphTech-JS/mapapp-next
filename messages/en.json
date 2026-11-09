@@ -34,16 +34,16 @@
     },
     "facts": [
       {
-        "value": "1 steps",
-        "label": "to add a business"
+        "value": "Add",
+        "label": "your business in 3 steps"
       },
       {
-        "value": "Section & door",
-        "label": "instead of “somewhere in the yard”"
+        "value": "Find",
+        "label": "what you need, right to the entrance"
       },
       {
-        "value": "Free",
-        "label": "for residents"
+        "value": "Discover",
+        "label": "new places nearby"
       }
     ]
   },
@@ -92,7 +92,7 @@
       },
       {
         "title": "Support local business",
-        "text": "Neighbours choose places in their own complex more often."
+        "text": "Discover new places and help businesses in your complex grow."
       }
     ]
   },
@@ -333,6 +333,15 @@
     "cta": "Add a business",
     "ctaAlt": "Ask a question",
     "note": "Your place appears on the map after moderation. Listing is free.",
+    "post": {
+      "title": "How to tell residents about news and offers",
+      "steps": [
+        "In your business account, tap “Post to news”",
+        "Pick a type — event, offer, opening or closing — and write the text",
+        "Turn on “Send a broadcast” — residents get a push notification"
+      ],
+      "note": "Up to 3 broadcasts a week. You can choose the send time and the audience."
+    },
     "ask": {
       "title": "Ask a question",
       "intro": "Tell us what you would like to know about listing your place and we will get back to you.",
@@ -359,8 +368,8 @@
       "business": "Business name",
       "businessPh": "For example, Ranok café",
       "name": "Your name",
-      "contact": "Phone",
-      "contactPh": "+380 XX XXX XX XX",
+      "contact": "Phone or Telegram",
+      "contactPh": "+380… or @username",
       "comment": "Comment",
       "commentPh": "Café, salon, medical centre…",
       "submit": "Send request",

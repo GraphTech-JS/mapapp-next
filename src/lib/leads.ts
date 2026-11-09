@@ -25,6 +25,18 @@ export function coord(v: unknown, limit: number) {
   return Number.isFinite(n) && Math.abs(n) <= limit ? Math.round(n * 1e6) / 1e6 : undefined;
 }
 
+export type Contact = { value: string; html: string };
+
+export function parseContact(raw: string): Contact | null {
+  const digits = raw.replace(/\D/g, "");
+  if (/^\+?[0-9\s\-()]+$/.test(raw) && digits.length >= 10 && digits.length <= 15)
+    return { value: raw, html: `<b>Телефон:</b> ${esc(raw)}` };
+  const username = raw.replace(/^(https?:\/\/)?t\.me\//i, "").replace(/^@/, "");
+  if (/^[A-Za-z0-9_]{5,32}$/.test(username))
+    return { value: `@${username}`, html: `<b>Telegram:</b> <a href="https://t.me/${username}">@${username}</a>` };
+  return null;
+}
+
 export async function readForm(req: Request): Promise<Record<string, unknown> | null> {
   try {
     const body = await req.json();

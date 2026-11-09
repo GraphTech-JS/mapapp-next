@@ -27,12 +27,10 @@ export default function BusinessRequestModal({ trigger, triggerClassName }: { tr
           {t("contact")} *
           <input
             name="contact"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
             required
-            maxLength={20}
-            pattern="\+?[0-9\s\-\(\)]{10,20}"
+            maxLength={64}
+            autoComplete="tel"
+            pattern="(\+?[0-9\s\-\(\)]{10,20})|((https?://)?(t\.me/)?@?[A-Za-z0-9_]{5,32})"
             title={t("contactPh")}
             placeholder={t("contactPh")}
             className={fieldCls}

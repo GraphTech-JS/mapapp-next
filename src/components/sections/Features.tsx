@@ -4,7 +4,6 @@ import Container from "@/components/ui/Container";
 import SectionHead from "@/components/ui/SectionHead";
 // import { FreshScreen } from "@/components/phones/Screens";
 import { PhoneScreenshot } from "@/components/phones/Phone";
-import AddFormDemo from "@/components/phones/AddFormDemo";
 import MapZoomDemo from "@/components/phones/MapZoomDemo";
 import SearchDemo from "@/components/phones/SearchDemo";
 import NotifyDemo from "@/components/phones/NotifyDemo";
@@ -15,14 +14,6 @@ const ITEMS = [
     screen: (
       <PhoneScreenshot src="/screens/map-v4.png" alt="QMaply" width={860} height={1755}>
         <MapZoomDemo src="/screens/map-v4-layer.jpg" mask="/screens/map-v4-mask.png" />
-      </PhoneScreenshot>
-    ),
-  },
-  {
-    key: "add",
-    screen: (
-      <PhoneScreenshot src="/screens/add-v2.png" alt="QMaply" width={860} height={1747}>
-        <AddFormDemo />
       </PhoneScreenshot>
     ),
   },
