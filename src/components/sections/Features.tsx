@@ -11,8 +11,8 @@ const ITEMS = [
   {
     key: "map",
     screen: (
-      <PhoneScreenshot src="/screens/map-v4.png" alt="QMaply" width={860} height={1755}>
-        <MapZoomDemo src="/screens/map-v4-layer.jpg" mask="/screens/map-v4-mask.png" />
+      <PhoneScreenshot src="/screens/map-v5.png" alt="QMaply" width={860} height={1755}>
+        <MapZoomDemo src="/screens/map-v5-layer.jpg" mask="/screens/map-v5-mask.png" />
       </PhoneScreenshot>
     ),
   },
