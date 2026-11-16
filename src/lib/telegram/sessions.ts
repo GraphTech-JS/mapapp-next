@@ -1,4 +1,17 @@
+import type { OutreachStatus } from "@/lib/telegram/outreach-constants";
+
 export type BusinessStep = "complex" | "business" | "name" | "phone" | "comment";
+
+export type AdminOutreachStep =
+  | "complex"
+  | "business"
+  | "category"
+  | "category_custom"
+  | "contact"
+  | "name"
+  | "position"
+  | "status"
+  | "comment";
 
 export type SessionDraft =
   | {
@@ -12,6 +25,20 @@ export type SessionDraft =
       business?: string;
       name?: string;
       phone?: string;
+    }
+  | {
+      kind: "admin";
+    }
+  | {
+      kind: "admin_outreach";
+      step: AdminOutreachStep;
+      complex?: string;
+      business?: string;
+      category?: string;
+      contact?: string;
+      personName?: string;
+      position?: string;
+      status?: OutreachStatus;
     };
 
 export type Session = SessionDraft & { updatedAt: number };

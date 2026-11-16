@@ -1,4 +1,6 @@
 import { esc } from "@/lib/leads";
+import { handleAdminUpdate, isAdmin } from "@/lib/telegram/admin";
+import { BTN_ADMIN_EXIT } from "@/lib/telegram/outreach-constants";
 import {
   clearSession,
   getSession,
@@ -13,6 +15,7 @@ const BTN_RESIDENT = "Я житель";
 const BTN_BUSINESS = "Заявка від бізнесу";
 const BTN_CANCEL = "Скасувати";
 const BTN_SKIP = "Пропустити коментар";
+const BTN_SHARE_PHONE = "Поділитися номером";
 
 const MAX_TEXT = 2000;
 const recentSubmit = new Map<number, number[]>();
@@ -24,11 +27,18 @@ type TgUser = {
   username?: string;
 };
 
+type TgContact = {
+  phone_number: string;
+  first_name?: string;
+  user_id?: number;
+};
+
 type TgMessage = {
   message_id: number;
   chat: { id: number; type: string };
   from?: TgUser;
   text?: string;
+  contact?: TgContact;
 };
 
 type TgUpdate = {
@@ -36,19 +46,34 @@ type TgUpdate = {
   message?: TgMessage;
 };
 
-const mainMenu = {
+type ReplyMenu = {
+  keyboard: Array<Array<Record<string, unknown>>>;
+  resize_keyboard: boolean;
+  one_time_keyboard: boolean;
+};
+
+const mainMenu: ReplyMenu = {
   keyboard: [[{ text: BTN_BUSINESS }], [{ text: BTN_RESIDENT }]],
   resize_keyboard: true,
   one_time_keyboard: false,
 };
 
-const cancelMenu = {
+const cancelMenu: ReplyMenu = {
   keyboard: [[{ text: BTN_CANCEL }]],
   resize_keyboard: true,
   one_time_keyboard: false,
 };
 
-const commentMenu = {
+const phoneMenu: ReplyMenu = {
+  keyboard: [
+    [{ text: BTN_SHARE_PHONE, request_contact: true }],
+    [{ text: BTN_CANCEL }],
+  ],
+  resize_keyboard: true,
+  one_time_keyboard: false,
+};
+
+const commentMenu: ReplyMenu = {
   keyboard: [[{ text: BTN_SKIP }], [{ text: BTN_CANCEL }]],
   resize_keyboard: true,
   one_time_keyboard: false,
@@ -73,12 +98,14 @@ function isPhone(value: string) {
   return /^\+?[0-9\s\-()]+$/.test(value) && digits.length >= 10 && digits.length <= 15;
 }
 
-async function reply(
-  chatId: number,
-  text: string,
-  menu: typeof mainMenu | typeof cancelMenu | typeof commentMenu,
-) {
+async function reply(chatId: number, text: string, menu: ReplyMenu) {
   await sendTelegramMessage(text, { chatId, replyMarkup: menu });
+}
+
+function menuForStep(step: BusinessStep): ReplyMenu {
+  if (step === "phone") return phoneMenu;
+  if (step === "comment") return commentMenu;
+  return cancelMenu;
 }
 
 async function showMainMenu(chatId: number, text: string) {
@@ -90,7 +117,8 @@ const stepPrompt: Record<BusinessStep, string> = {
   complex: "Напишіть назву ЖК (наприклад: Варшавський).",
   business: "Напишіть назву закладу.",
   name: "Ваше ім'я (контактна особа).",
-  phone: "Номер телефону для зв'язку.",
+  phone:
+    "Номер телефону для зв'язку.\nНатисніть «Поділитися номером» або введіть вручну.",
   comment: "Коментар (необов'язково) або натисніть «Пропустити коментар».",
 };
 
@@ -176,6 +204,16 @@ async function deliverResidentFeedback(chatId: number, user: TgUser, text: strin
   await showMainMenu(chatId, "Дякуємо! Фідбек надіслано.");
 }
 
+async function acceptPhone(
+  chatId: number,
+  session: Extract<Session, { kind: "business" }>,
+  phone: string,
+) {
+  const normalized = phone.trim().slice(0, 20);
+  setSession(chatId, { ...businessDraft(session), step: "comment", phone: normalized });
+  await reply(chatId, stepPrompt.comment, commentMenu);
+}
+
 async function handleBusinessStep(
   chatId: number,
   user: TgUser,
@@ -210,7 +248,7 @@ async function handleBusinessStep(
       return;
     }
     setSession(chatId, { ...businessDraft(session), step: "phone", name: value.slice(0, 80) });
-    await reply(chatId, stepPrompt.phone, cancelMenu);
+    await reply(chatId, stepPrompt.phone, phoneMenu);
     return;
   }
 
@@ -219,12 +257,11 @@ async function handleBusinessStep(
       await reply(
         chatId,
         "Не схоже на номер телефону. Приклад: +380XXXXXXXXX\n\n" + stepPrompt.phone,
-        cancelMenu,
+        phoneMenu,
       );
       return;
     }
-    setSession(chatId, { ...businessDraft(session), step: "comment", phone: value.slice(0, 20) });
-    await reply(chatId, stepPrompt.comment, commentMenu);
+    await acceptPhone(chatId, session, value);
     return;
   }
 
@@ -255,6 +292,17 @@ export async function handleTelegramUpdate(update: TgUpdate) {
     return;
   }
 
+  // Hidden admin: /admin and admin keyboards (only @Andrew_257 / TELEGRAM_ADMIN_*)
+  if (text) {
+    const handled = await handleAdminUpdate(chatId, user, text);
+    if (handled) return;
+    // Admin pressed «Вийти» → fall through to public menu below when text is exit
+    if (isAdmin(user) && text === BTN_ADMIN_EXIT) {
+      await showMainMenu(chatId, "Вийшли з адмінки. Звичайне меню:");
+      return;
+    }
+  }
+
   if (text === BTN_CANCEL) {
     await showMainMenu(chatId, "Скасовано. Оберіть дію кнопкою нижче:");
     return;
@@ -270,14 +318,45 @@ export async function handleTelegramUpdate(update: TgUpdate) {
     return;
   }
 
+  if (message.contact) {
+    const session = getSession(chatId);
+    if (session?.kind === "business" && session.step === "phone") {
+      const contact = message.contact;
+      if (contact.user_id != null && contact.user_id !== user.id) {
+        await reply(
+          chatId,
+          "Потрібно поділитися саме своїм номером.\n\n" + stepPrompt.phone,
+          phoneMenu,
+        );
+        return;
+      }
+      if (!contact.phone_number) {
+        await reply(chatId, "Не вдалося прочитати номер. Спробуйте ще раз або введіть вручну.", phoneMenu);
+        return;
+      }
+      const phone = contact.phone_number.startsWith("+")
+        ? contact.phone_number
+        : `+${contact.phone_number}`;
+      await acceptPhone(chatId, session, phone);
+      return;
+    }
+    await showMainMenu(chatId, "Оберіть дію кнопкою нижче:");
+    return;
+  }
+
   if (!text) {
     const session = getSession(chatId);
+    if (session?.kind === "admin" || session?.kind === "admin_outreach") {
+      if (isAdmin(user)) {
+        await handleAdminUpdate(chatId, user, "/admin");
+      } else {
+        clearSession(chatId);
+        await showMainMenu(chatId, "Оберіть дію кнопкою нижче:");
+      }
+      return;
+    }
     if (session?.kind === "business") {
-      await reply(
-        chatId,
-        "Надішліть текстом.\n\n" + stepPrompt[session.step],
-        session.step === "comment" ? commentMenu : cancelMenu,
-      );
+      await reply(chatId, "Надішліть текстом.\n\n" + stepPrompt[session.step], menuForStep(session.step));
     } else if (session?.kind === "feedback") {
       await reply(chatId, "Надішліть, будь ласка, текстом.", cancelMenu);
     } else {
@@ -287,7 +366,7 @@ export async function handleTelegramUpdate(update: TgUpdate) {
   }
 
   const session = getSession(chatId);
-  if (!session) {
+  if (!session || session.kind === "admin" || session.kind === "admin_outreach") {
     await showMainMenu(chatId, "Оберіть дію кнопкою нижче:");
     return;
   }
@@ -296,7 +375,7 @@ export async function handleTelegramUpdate(update: TgUpdate) {
     await reply(
       chatId,
       `Текст занадто довгий (макс. ${MAX_TEXT} символів). Скоротіть і надішліть ще раз.`,
-      session.kind === "business" && session.step === "comment" ? commentMenu : cancelMenu,
+      session.kind === "business" ? menuForStep(session.step) : cancelMenu,
     );
     return;
   }
