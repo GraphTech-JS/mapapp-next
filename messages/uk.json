@@ -20,6 +20,7 @@
   },
   "stores": {
     "soon": "Незабаром в",
+    "launchSoon": "Скоро запуск",
     "appStore": "Завантажте в",
     "googlePlay": "Доступно в"
   },

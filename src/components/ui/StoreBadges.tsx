@@ -21,22 +21,49 @@ export default function StoreBadges({ className = "" }: { className?: string }) 
     { url: site.iosUrl, icon: <AppleIcon />, small: t("appStore"), big: "App Store" },
     { url: site.androidUrl, icon: <PlayIcon />, small: t("googlePlay"), big: "Google Play" },
   ];
+
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
       {items.map((s) => {
         const soon = !s.url;
-        return (
-          <a
-            key={s.big}
-            href={soon ? "#download" : s.url}
-            {...(soon ? {} : { target: "_blank", rel: "noopener noreferrer" })}
-            className="inline-flex min-w-[178px] items-center gap-3 rounded-[14px] bg-ink py-2.5 pr-5 pl-3.5 text-white transition hover:-translate-y-[3px] hover:bg-[#2c211b] max-[400px]:w-full"
-          >
+        const content = (
+          <>
             {s.icon}
             <span className="leading-tight">
               <small className="block text-[11px] opacity-75">{soon ? t("soon") : s.small}</small>
               <span className="text-[17px] font-semibold">{s.big}</span>
             </span>
+          </>
+        );
+
+        if (soon) {
+          return (
+            <span
+              key={s.big}
+              aria-label={`${s.big}: ${t("launchSoon")}`}
+              className="relative inline-flex min-w-[178px] cursor-default overflow-hidden rounded-[14px] bg-ink py-2.5 pr-5 pl-3.5 text-white max-[400px]:w-full"
+            >
+              <span aria-hidden className="inline-flex items-center gap-3 blur-[2.5px] opacity-55">
+                {content}
+              </span>
+              <span className="pointer-events-none absolute inset-0 grid place-items-center bg-ink/25">
+                <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-semibold tracking-wide text-ink shadow-[0_6px_16px_-8px_rgba(0,0,0,.45)]">
+                  {t("launchSoon")}
+                </span>
+              </span>
+            </span>
+          );
+        }
+
+        return (
+          <a
+            key={s.big}
+            href={s.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-w-[178px] items-center gap-3 rounded-[14px] bg-ink py-2.5 pr-5 pl-3.5 text-white transition hover:-translate-y-[3px] hover:bg-[#2c211b] max-[400px]:w-full"
+          >
+            {content}
           </a>
         );
       })}
