@@ -81,6 +81,7 @@ export async function deliverLead(req: Request, lead: Lead, telegramText: string
     console.error("site-leads: neither QMAP_API_URL nor Telegram is configured");
     return NextResponse.json({ ok: false }, { status: 500 });
   }
-  const ok = admin ?? telegram;
+  const ok = admin === true || telegram === true;
+  if (!ok) console.error("site-leads: delivery failed", { admin, telegram });
   return NextResponse.json({ ok }, { status: ok ? 200 : 502 });
 }

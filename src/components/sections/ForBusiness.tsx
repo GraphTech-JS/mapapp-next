@@ -115,7 +115,6 @@ export default async function ForBusiness() {
                 </li>
               ))}
             </ol>
-            <p className="text-sm text-ink-3">{t("post.note")}</p>
           </div>
           <div className="relative grid min-w-0 place-items-center">
             <div aria-hidden className="absolute aspect-square w-[78%] max-w-[380px] rounded-full bg-[radial-gradient(circle,var(--color-tint-2),transparent_70%)]" />
