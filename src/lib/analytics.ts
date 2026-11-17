@@ -45,8 +45,10 @@ export function loadGoogleAnalytics(measurementId = GA_MEASUREMENT_ID) {
   if (document.getElementById("ga4-gtag")) return;
 
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag(...args: unknown[]) {
-    window.dataLayer?.push(args);
+  // gtag.js only processes Arguments objects pushed to dataLayer, not arrays.
+  window.gtag = function gtag() {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer?.push(arguments);
   };
   window.gtag("js", new Date());
   window.gtag("config", measurementId, { anonymize_ip: true });
