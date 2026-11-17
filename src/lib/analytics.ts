@@ -40,7 +40,14 @@ declare global {
   }
 }
 
-export function loadGoogleAnalytics(measurementId = GA_MEASUREMENT_ID) {
+function analyticsStorage(consent: CookieConsent | null) {
+  return consent === "analytics" ? "granted" : "denied";
+}
+
+export function loadGoogleAnalytics(
+  consent: CookieConsent | null,
+  measurementId = GA_MEASUREMENT_ID,
+) {
   if (typeof window === "undefined" || !measurementId) return;
   if (document.getElementById("ga4-gtag")) return;
 
@@ -50,6 +57,13 @@ export function loadGoogleAnalytics(measurementId = GA_MEASUREMENT_ID) {
     // eslint-disable-next-line prefer-rest-params
     window.dataLayer?.push(arguments);
   };
+  // Consent Mode v2: without consent GA sends cookieless pings only.
+  window.gtag("consent", "default", {
+    analytics_storage: analyticsStorage(consent),
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
   window.gtag("js", new Date());
   window.gtag("config", measurementId, { anonymize_ip: true });
 
@@ -58,4 +72,10 @@ export function loadGoogleAnalytics(measurementId = GA_MEASUREMENT_ID) {
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
   document.head.appendChild(script);
+}
+
+export function updateAnalyticsConsent(consent: CookieConsent) {
+  window.gtag?.("consent", "update", {
+    analytics_storage: analyticsStorage(consent),
+  });
 }

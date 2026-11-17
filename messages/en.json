@@ -1172,7 +1172,7 @@
           },
           {
             "type": "p",
-            "text": "If you tap “Accept analytics”, we load Google Analytics 4 (Google LLC). This helps us understand how many people visit the site and which pages matter. We do not show ads through this tag. If you choose “Necessary only”, analytics cookies are not set."
+            "text": "The site uses Google Analytics 4 (Google LLC) in Consent Mode. Until you tap “Accept analytics”, GA4 sets no cookies and sends only anonymous technical pings without a visitor identifier. After you consent, analytics cookies are enabled so we can understand how many people visit the site and which pages matter. We do not show ads through this tag. If you choose “Necessary only”, analytics cookies are not set."
           },
           {
             "type": "h2",
