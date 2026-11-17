@@ -1128,7 +1128,7 @@
           },
           {
             "type": "note",
-            "text": "**In short.** We only use necessary cookies to remember the site language. No ads, no analytics, no tracking."
+            "text": "**In short.** Necessary cookies remember the site language. With your consent we also use Google Analytics (GA4) to understand traffic. We do not use advertising cookies yet."
           },
           {
             "type": "h2",
@@ -1153,20 +1153,26 @@
                 "Until you close the browser"
               ],
               [
-                "qm-cookie-notice",
-                "Remembers that you closed the cookie notice",
+                "qm-cookie-consent",
+                "Remembers your analytics choice (necessary only / analytics)",
                 "Necessary, browser local storage",
                 "Until you clear site data"
+              ],
+              [
+                "_ga, _ga_*",
+                "Google Analytics 4: visitors, pages, traffic sources (only after consent)",
+                "Analytics, Google cookie",
+                "Up to 2 years"
               ]
             ]
           },
           {
             "type": "h2",
-            "text": "3. What we don’t use"
+            "text": "3. Analytics and third parties"
           },
           {
             "type": "p",
-            "text": "We don’t use advertising, analytics or third-party tracking cookies, and we don’t share cookie data with third parties."
+            "text": "If you tap “Accept analytics”, we load Google Analytics 4 (Google LLC). This helps us understand how many people visit the site and which pages matter. We do not show ads through this tag. If you choose “Necessary only”, analytics cookies are not set."
           },
           {
             "type": "h2",
@@ -1174,7 +1180,7 @@
           },
           {
             "type": "p",
-            "text": "Necessary cookies are required for the site to work, so they don’t need separate consent. If we ever add analytics or other optional cookies, we will ask for your consent before using them and update this page."
+            "text": "Necessary cookies are required for the site to work, so they don’t need separate consent. Analytics cookies run only after you consent in the site banner."
           },
           {
             "type": "h2",
@@ -1182,7 +1188,7 @@
           },
           {
             "type": "p",
-            "text": "You can delete or block cookies in your browser settings. The site will still work, but it may not remember your language."
+            "text": "You can delete or block cookies in your browser settings, or clear site data to see the consent banner again. The site still works without analytics."
           },
           {
             "type": "h2",
@@ -1316,8 +1322,11 @@
   },
   "cookieNotice": {
     "text": "We only use necessary cookies to remember the site language. No ads, no tracking.",
+    "textAnalytics": "We use necessary cookies for the site language. With your consent we also use Google Analytics to understand traffic. We do not show ads yet.",
     "more": "Learn more",
-    "ok": "Got it"
+    "ok": "Got it",
+    "necessary": "Necessary only",
+    "accept": "Accept analytics"
   },
   "addressPicker": {
     "label": "Address",

@@ -9,6 +9,7 @@ import { COMPLEXES } from "@/config/complexes";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieNotice from "@/components/layout/CookieNotice";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import JsonLd from "@/components/seo/JsonLd";
 import "../globals.css";
 
@@ -108,6 +109,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           {children}
           <Footer />
           <CookieNotice />
+          <GoogleAnalytics />
         </NextIntlClientProvider>
       </body>
     </html>
