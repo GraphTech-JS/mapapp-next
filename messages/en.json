@@ -488,8 +488,9 @@
           {
             "type": "ul",
             "items": [
-              "**Account data:** name, email address and/or phone number, the residential complex you chose. If you sign in with Apple or Google, we receive the identifier and email that service shares. Passwords are stored only as hashes.",
+              "**Account data:** name, email address and/or phone number, the residential complex you chose, avatar. Optionally, gender and date of birth: these are used only so that businesses can address their notifications to a certain age group or gender. If you sign in with Apple or Google, we receive the identifier and email that service shares. Passwords are stored only as hashes.",
               "**Business data:** business name, category, location in the complex (building, section, entrance), opening hours, contact phone, website or social media links, photos. If a sole proprietor runs the business, this data may include their name and phone. Business data is published on the map and visible to all users.",
+              "**Reviews:** ratings and texts of reviews about places. Other users see them together with your name.",
               "**Messages:** content reports, map error reports, support emails."
             ]
           },
@@ -500,9 +501,8 @@
           {
             "type": "ul",
             "items": [
-              "**Location** (precise or approximate), only with your permission in the phone settings. It is used on the device to show where you are and build routes. We do not send coordinates to our servers or keep a location history.",
+              "**Location** (precise or approximate), only with your permission in the phone settings. It is used to show where you are, distances to places and to build routes. For a route, the start and end coordinates are sent to our server (walking) or to the Google Routes API (car, public transport) only to build the path; we do not store them or keep a location history.",
               "**Technical data:** device model, operating system and App version, language, push notification identifier.",
-              "**Diagnostics:** crash and error reports with an installation identifier.",
               "**Usage data:** screen views and actions in the App, such as opening a business card, building a route or tapping “Call”. Business owners see aggregated statistics for their card (views, routes, calls) with no data about individual users."
             ]
           },
@@ -587,9 +587,12 @@
               {
                 "text": "**Personal data processors** that process data on our behalf and only for the purposes of this Policy:",
                 "items": [
-                  "Google LLC (USA): Firebase and Google Cloud for data storage, authentication including SMS sign-in by phone number, push notifications (Firebase Cloud Messaging), crash reports (Crashlytics) and usage analytics;",
+                  "Hostinger International Ltd.: the Service’s server and database (data centre in Germany, EU);",
+                  "Google LLC (USA): Google Maps Platform (routes, place data and photos), Sign in with Google, push delivery on Android (Firebase Cloud Messaging);",
+                  "650 Industries, Inc. (Expo, USA): push notification sending service;",
                   "Apple Inc. (USA): push notifications on iPhone (Apple Push Notification service), Sign in with Apple;",
                   "Vercel Inc. (USA): hosting of the website {domain};",
+                  "Telegram FZ-LLC: business owner applications (business name and address, owner’s name and contacts) are delivered to our team for review;",
                   "{mapProvider}: map display."
                 ]
               },
@@ -616,7 +619,7 @@
               "Account data: while the account is active, and no more than 30 days after it is deleted.",
               "Business data: while the card is published or until a deletion request.",
               "Messages and reports: up to 12 months after they are handled.",
-              "Diagnostics and technical logs: up to 90 days.",
+              "Server technical logs: up to 90 days.",
               "Data with a retention period set by law: for that period."
             ]
           },
@@ -650,7 +653,7 @@
           },
           {
             "type": "p",
-            "text": "You can delete your account in the App (Profile → Settings → Delete account) or by email without signing in. See [Delete Account and Data](/delete-account)."
+            "text": "You can delete your account in the App (Profile → Delete account) or by email without signing in. See [Delete Account and Data](/delete-account)."
           },
           {
             "type": "h2",
@@ -670,19 +673,18 @@
             "rows": [
               ["Contact info (name, email, phone)", "Yes", "Yes", "No"],
               [
-                "User content (business data, photos, messages)",
+                "User content (reviews, business data, photos, messages)",
                 "Yes",
                 "Yes",
                 "No"
               ],
+              ["Location", "Yes, only to build routes, not stored", "No", "No"],
               [
-                "Location",
-                "On the device only, not sent to servers",
-                "No",
+                "Identifiers (account ID, push token, installation ID)",
+                "Yes",
+                "Yes",
                 "No"
               ],
-              ["Identifiers (account ID, push token)", "Yes", "Yes", "No"],
-              ["Diagnostics (crashes)", "Yes", "Yes (installation ID)", "No"],
               ["Usage data", "Yes", "Yes", "No"]
             ]
           },
@@ -961,8 +963,7 @@
             "type": "steps",
             "items": [
               "Open {app} and sign in.",
-              "Go to “Profile” → “Settings”.",
-              "Tap “Delete account” and confirm."
+              "Go to “Profile”, tap “Delete account” and confirm."
             ]
           },
           {
@@ -1006,7 +1007,8 @@
             "items": [
               "Account data: name, email, phone number, password hash, Apple or Google sign-in identifiers.",
               "Favourite places, notification settings, push token.",
-              "Business cards you created are unpublished and deleted, unless you handed them over to another representative of the business.",
+              "Avatar, gender and date of birth, your link to businesses.",
+              "Business cards that have not passed moderation yet are deleted. Approved places stay on the map, no longer linked to you.",
               "Your reports and error messages are anonymised: the content stays, the link to you does not."
             ]
           },
@@ -1018,6 +1020,8 @@
             "type": "ul",
             "items": [
               "Crash reports and technical logs: up to 90 days, not linked to your account.",
+              "Your reviews with your name, and business news and promotions, until you ask us to delete them. You can delete them in the app before deleting the account, or ask us by email.",
+              "Anonymised usage statistics, without your profile data.",
               "Backups: up to 30 days, then overwritten.",
               "Data with a retention period set by law: for that period."
             ]
@@ -1028,7 +1032,7 @@
           },
           {
             "type": "p",
-            "text": "You can delete individual photos, a business card or favourite places in the app, or ask us by email at {email}."
+            "text": "You can delete your reviews, avatar, phone, gender and date of birth, favourite places, and owners can delete business news, promotions and photos in the app, or ask us by email at {email}."
           }
         ]
       },
