@@ -28,6 +28,8 @@ export const BTN_ADMIN_ADD = "➕ Додати заклад";
 export const BTN_ADMIN_STATS = "📊 Статистика";
 export const BTN_ADMIN_EXIT = "🚪 Вийти з адмінки";
 export const BTN_CATEGORY_OTHER = "Інше (ввести)";
+export const BTN_SKIP_CONTACT = "Пропустити контакт";
+export const BTN_SKIP_NAME = "Пропустити ім'я";
 export const BTN_SKIP_POSITION = "Пропустити посаду";
 export const BTN_SKIP_COMMENT = "Пропустити коментар";
 

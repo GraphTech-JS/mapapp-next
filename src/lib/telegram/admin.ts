@@ -5,6 +5,8 @@ import {
   BTN_ADMIN_STATS,
   BTN_CATEGORY_OTHER,
   BTN_SKIP_COMMENT,
+  BTN_SKIP_CONTACT,
+  BTN_SKIP_NAME,
   BTN_SKIP_POSITION,
   CATEGORIES,
   COMPLEXES,
@@ -75,6 +77,22 @@ function statusMenu(): ReplyMenu {
   };
 }
 
+function contactMenu(): ReplyMenu {
+  return {
+    keyboard: [[{ text: BTN_SKIP_CONTACT }], [{ text: "Скасувати" }]],
+    resize_keyboard: true,
+    one_time_keyboard: false,
+  };
+}
+
+function nameMenu(): ReplyMenu {
+  return {
+    keyboard: [[{ text: BTN_SKIP_NAME }], [{ text: "Скасувати" }]],
+    resize_keyboard: true,
+    one_time_keyboard: false,
+  };
+}
+
 function positionMenu(): ReplyMenu {
   return {
     keyboard: [[{ text: BTN_SKIP_POSITION }], [{ text: "Скасувати" }]],
@@ -95,6 +113,8 @@ function menuForStep(step: AdminOutreachStep): ReplyMenu {
   if (step === "complex") return complexMenu();
   if (step === "category") return categoryMenu();
   if (step === "status") return statusMenu();
+  if (step === "contact") return contactMenu();
+  if (step === "name") return nameMenu();
   if (step === "position") return positionMenu();
   if (step === "comment") return commentMenu();
   return cancelOnly;
@@ -105,8 +125,8 @@ const stepPrompt: Record<AdminOutreachStep, string> = {
   business: "Назва закладу:",
   category: "Категорія (зі списку або «Інше»):",
   category_custom: "Введіть категорію вручну:",
-  contact: "Контакт (телефон / @username / інше):",
-  name: "Ім'я контактної особи:",
+  contact: "Контакт (телефон / @username) або «Пропустити контакт»:",
+  name: "Ім'я контактної особи або «Пропустити ім'я»:",
   position: "Посада (або «Пропустити посаду»):",
   status: "Статус:",
   comment: "Коментар (або «Пропустити коментар»):",
@@ -142,7 +162,7 @@ export async function showAdminMenu(chatId: number, text?: string) {
   );
 }
 
-function formatCounts(title: string, counts: ReturnType<typeof outreachStats>["today"]) {
+function formatCounts(title: string, counts: Awaited<ReturnType<typeof outreachStats>>["today"]) {
   const lines = [
     `<b>${esc(title)}</b>`,
     `• ${OUTREACH_STATUSES.added}: <b>${counts.added}</b>`,
@@ -154,7 +174,7 @@ function formatCounts(title: string, counts: ReturnType<typeof outreachStats>["t
 }
 
 export async function sendStats(chatId: number) {
-  const { today, all, dayLabel } = outreachStats();
+  const { today, all, dayLabel } = await outreachStats();
   const text = [
     "📊 <b>Статистика outreach</b>",
     "",
@@ -185,36 +205,57 @@ function draftFromSession(session: Extract<ReturnType<typeof getSession>, { kind
   };
 }
 
+function displayOrDash(value: string | undefined) {
+  const trimmed = value?.trim() ?? "";
+  return trimmed || "—";
+}
+
 async function saveRecord(
   chatId: number,
   user: TgUser,
   session: NonNullable<ReturnType<typeof getSession>> & { kind: "admin_outreach" },
   comment: string,
 ) {
-  if (!session.complex || !session.business || !session.category || !session.contact || !session.personName || !session.status) {
+  if (
+    !session.complex ||
+    !session.business ||
+    !session.category ||
+    typeof session.contact !== "string" ||
+    typeof session.personName !== "string" ||
+    !session.status
+  ) {
     await showAdminMenu(chatId, "Не вистачає даних. Почніть додавання знову.");
     return;
   }
 
-  insertOutreach({
-    complex: session.complex,
-    business: session.business,
-    category: session.category,
-    contact: session.contact,
-    personName: session.personName,
-    position: session.position ?? "",
-    status: session.status,
-    comment,
-    createdBy: user.id,
-  });
+  try {
+    await insertOutreach({
+      complex: session.complex,
+      business: session.business,
+      category: session.category,
+      contact: session.contact,
+      personName: session.personName,
+      position: session.position ?? "",
+      status: session.status,
+      comment,
+      createdBy: user.id,
+    });
+  } catch (error) {
+    console.error("outreach save failed", error);
+    await showAdminMenu(
+      chatId,
+      "Не вдалося зберегти в БД. Спробуйте ще раз трохи пізніше.",
+    );
+    return;
+  }
 
   const summary = [
     "✅ <b>Збережено</b>",
     `<b>ЖК:</b> ${esc(session.complex)}`,
     `<b>Заклад:</b> ${esc(session.business)}`,
     `<b>Категорія:</b> ${esc(session.category)}`,
-    `<b>Контакт:</b> ${esc(session.contact)}`,
-    `<b>Ім'я:</b> ${esc(session.personName)}`,
+    `<b>Контакт:</b> ${esc(displayOrDash(session.contact))}`,
+    `<b>Ім'я:</b> ${esc(displayOrDash(session.personName))}`,
     ...(session.position ? [`<b>Посада:</b> ${esc(session.position)}`] : []),
     `<b>Статус:</b> ${esc(OUTREACH_STATUSES[session.status])}`,
     ...(comment ? [`<b>Коментар:</b> ${esc(comment)}`] : []),
@@ -263,7 +304,7 @@ async function handleOutreachStep(
       return;
     }
     setSession(chatId, { ...base, step: "contact", category: value });
-    await reply(chatId, stepPrompt.contact, cancelOnly);
+    await reply(chatId, stepPrompt.contact, contactMenu());
     return;
   }
 
@@ -273,23 +314,33 @@ async function handleOutreachStep(
       return;
     }
     setSession(chatId, { ...base, step: "contact", category: value.slice(0, 80) });
-    await reply(chatId, stepPrompt.contact, cancelOnly);
+    await reply(chatId, stepPrompt.contact, contactMenu());
     return;
   }
 
   if (session.step === "contact") {
+    if (value === BTN_SKIP_CONTACT) {
+      setSession(chatId, { ...base, step: "name", contact: "" });
+      await reply(chatId, stepPrompt.name, nameMenu());
+      return;
+    }
     if (value.length < 3) {
-      await reply(chatId, "Занадто коротко. " + stepPrompt.contact, cancelOnly);
+      await reply(chatId, "Занадто коротко. " + stepPrompt.contact, contactMenu());
       return;
     }
     setSession(chatId, { ...base, step: "name", contact: value.slice(0, 120) });
-    await reply(chatId, stepPrompt.name, cancelOnly);
+    await reply(chatId, stepPrompt.name, nameMenu());
     return;
   }
 
   if (session.step === "name") {
+    if (value === BTN_SKIP_NAME) {
+      setSession(chatId, { ...base, step: "position", personName: "" });
+      await reply(chatId, stepPrompt.position, positionMenu());
+      return;
+    }
     if (value.length < 2) {
-      await reply(chatId, "Занадто коротко. " + stepPrompt.name, cancelOnly);
+      await reply(chatId, "Занадто коротко. " + stepPrompt.name, nameMenu());
       return;
     }
     setSession(chatId, { ...base, step: "position", personName: value.slice(0, 80) });

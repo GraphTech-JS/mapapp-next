@@ -1,8 +1,4 @@
-import fs from "node:fs";
-import path from "node:path";
-import { DatabaseSync } from "node:sqlite";
 import type { OutreachStatus } from "@/lib/telegram/outreach-constants";
-import { OUTREACH_STATUSES } from "@/lib/telegram/outreach-constants";
 
 export type OutreachRecord = {
   complex: string;
@@ -18,7 +14,9 @@ export type OutreachRecord = {
 
 export type StatusCounts = Record<OutreachStatus, number> & { total: number };
 
-let db: DatabaseSync | null = null;
+function emptyCounts(): StatusCounts {
+  return { added: 0, contact_passed: 0, not_interested: 0, total: 0 };
+}
 
 function kyivDay(d = new Date()) {
   return new Intl.DateTimeFormat("en-CA", {
@@ -29,82 +27,65 @@ function kyivDay(d = new Date()) {
   }).format(d);
 }
 
-function dbPath() {
-  return process.env.OUTREACH_DB_PATH || path.join(process.cwd(), "data", "outreach.sqlite");
+function apiBase() {
+  return (process.env.QMAP_API_URL || "").replace(/\/$/, "");
 }
 
-function getDb() {
-  if (db) return db;
-  const file = dbPath();
-  fs.mkdirSync(path.dirname(file), { recursive: true });
-  db = new DatabaseSync(file);
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS outreach (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      complex TEXT NOT NULL,
-      business TEXT NOT NULL,
-      category TEXT NOT NULL,
-      contact TEXT NOT NULL,
-      person_name TEXT NOT NULL,
-      position TEXT NOT NULL DEFAULT '',
-      status TEXT NOT NULL,
-      comment TEXT NOT NULL DEFAULT '',
-      created_by INTEGER NOT NULL,
-      created_day TEXT NOT NULL,
-      created_at TEXT NOT NULL DEFAULT (datetime('now'))
-    );
-    CREATE INDEX IF NOT EXISTS idx_outreach_day ON outreach(created_day);
-    CREATE INDEX IF NOT EXISTS idx_outreach_status ON outreach(status);
-  `);
-  return db;
+function outreachSecret() {
+  return (
+    process.env.OUTREACH_API_SECRET?.trim() ||
+    process.env.TELEGRAM_BOT_TOKEN?.trim() ||
+    ""
+  );
 }
 
-export function insertOutreach(record: OutreachRecord) {
-  const database = getDb();
-  database
-    .prepare(
-      `INSERT INTO outreach
-        (complex, business, category, contact, person_name, position, status, comment, created_by, created_day)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    )
-    .run(
-      record.complex,
-      record.business,
-      record.category,
-      record.contact,
-      record.personName,
-      record.position,
-      record.status,
-      record.comment,
-      record.createdBy,
-      kyivDay(),
-    );
-}
-
-function emptyCounts(): StatusCounts {
-  return { added: 0, contact_passed: 0, not_interested: 0, total: 0 };
-}
-
-function countsFor(whereSql: string, params: Array<string | number> = []): StatusCounts {
-  const database = getDb();
-  const rows = database
-    .prepare(`SELECT status, COUNT(*) AS c FROM outreach ${whereSql} GROUP BY status`)
-    .all(...params) as Array<{ status: string; c: number }>;
-
-  const counts = emptyCounts();
-  for (const row of rows) {
-    if (row.status in OUTREACH_STATUSES) {
-      counts[row.status as OutreachStatus] = Number(row.c);
-      counts.total += Number(row.c);
-    }
+async function outreachFetch(path: string, init?: RequestInit) {
+  const base = apiBase();
+  const secret = outreachSecret();
+  if (!base || !secret) {
+    throw new Error("outreach_api_unconfigured");
   }
-  return counts;
+  const res = await fetch(`${base}${path}`, {
+    ...init,
+    headers: {
+      "Content-Type": "application/json",
+      "x-outreach-secret": secret,
+      ...(init?.headers || {}),
+    },
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`outreach_api_${res.status}:${body.slice(0, 200)}`);
+  }
+  return res;
 }
 
-export function outreachStats() {
-  return {
-    today: countsFor("WHERE created_day = ?", [kyivDay()]),
-    all: countsFor(""),
-    dayLabel: kyivDay(),
-  };
+export async function insertOutreach(record: OutreachRecord) {
+  await outreachFetch("/v1/outreach", {
+    method: "POST",
+    body: JSON.stringify(record),
+  });
+}
+
+export async function outreachStats() {
+  try {
+    const res = await outreachFetch("/v1/outreach/stats");
+    const data = (await res.json()) as {
+      today?: StatusCounts;
+      all?: StatusCounts;
+      dayLabel?: string;
+    };
+    return {
+      today: { ...emptyCounts(), ...data.today },
+      all: { ...emptyCounts(), ...data.all },
+      dayLabel: data.dayLabel || kyivDay(),
+    };
+  } catch (error) {
+    console.error("outreach stats failed", error);
+    return {
+      today: emptyCounts(),
+      all: emptyCounts(),
+      dayLabel: kyivDay(),
+    };
+  }
 }
