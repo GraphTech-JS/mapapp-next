@@ -86,7 +86,7 @@ async function decide(placeId: string, action: "approve" | "reject", by: string)
   const api = process.env.QMAP_API_URL;
   const secret = process.env.QMAP_MODERATION_SECRET;
   if (!api || !secret) {
-    return { ok: false as const, error: "not_configured" };
+    return { ok: false as const, error: "not_configured", status: 0 };
   }
   try {
     const res = await fetch(`${api.replace(/\/$/, "")}/v1/telegram/moderation`, {
@@ -97,16 +97,19 @@ async function decide(placeId: string, action: "approve" | "reject", by: string)
       },
       body: JSON.stringify({ placeId, action, by }),
     });
-    const body = (await res.json().catch(() => ({}))) as {
-      error?: string;
-      placeName?: string;
-      changed?: boolean;
-    };
-    if (!res.ok) return { ok: false as const, error: body.error ?? `http_${res.status}` };
+    const text = await res.text();
+    let body: { error?: string; message?: string; placeName?: string; changed?: boolean } = {};
+    try {
+      body = JSON.parse(text) as typeof body;
+    } catch {}
+    if (!res.ok) {
+      console.error("telegram moderation: api error", res.status, text.slice(0, 500));
+      return { ok: false as const, error: body.error ?? `http_${res.status}`, status: res.status };
+    }
     return { ok: true as const, placeName: body.placeName ?? "", changed: body.changed ?? false };
   } catch (error) {
     console.error("telegram moderation: api unreachable", error);
-    return { ok: false as const, error: "unreachable" };
+    return { ok: false as const, error: "unreachable", status: 0 };
   }
 }
 
@@ -114,6 +117,7 @@ const ERROR_TEXT: Record<string, string> = {
   place_not_found: "Заявку не знайдено — можливо, її вже видалили.",
   not_configured: "Модерацію з Telegram не налаштовано (QMAP_MODERATION_SECRET).",
   unauthorized: "Сервер відхилив запит: перевірте QMAP_MODERATION_SECRET.",
+  unreachable: "Сайт не достукався до сервера QMaply (QMAP_API_URL).",
 };
 
 export async function handleModerationCallback(query: TgCallbackQuery) {
@@ -145,7 +149,12 @@ export async function handleModerationCallback(query: TgCallbackQuery) {
     displayName(query.from),
   );
   if (!result.ok) {
-    await answer(query, ERROR_TEXT[result.error] ?? "Не вдалося. Спробуйте в адмінці.", true);
+    await answer(
+      query,
+      ERROR_TEXT[result.error] ??
+        `Не вдалося (код ${result.status || "—"}: ${result.error}). Спробуйте ще раз або в адмінці.`,
+      true,
+    );
     return true;
   }
   if (!result.changed) {
