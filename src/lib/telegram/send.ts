@@ -86,3 +86,22 @@ export async function sendTelegramMessage(
   if (lastError) console.error("telegram: sendMessage failed after retries", lastError);
   return false;
 }
+
+export async function callTelegram(
+  method: string,
+  payload: Record<string, unknown>,
+): Promise<boolean> {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) return false;
+  try {
+    const res = await postJson(
+      `https://api.telegram.org/bot${token}/${method}`,
+      JSON.stringify(payload),
+    );
+    if (!res.ok) console.error(`telegram: ${method} error`, res.status, res.text);
+    return res.ok;
+  } catch (error) {
+    console.error(`telegram: ${method} unreachable`, error);
+    return false;
+  }
+}

@@ -9,6 +9,7 @@ import {
   type Session,
   type SessionDraft,
 } from "@/lib/telegram/sessions";
+import { handleModerationCallback, type TgCallbackQuery } from "@/lib/telegram/moderation";
 import { sendTelegramMessage } from "@/lib/telegram/send";
 
 const BTN_RESIDENT = "Я житель";
@@ -44,6 +45,7 @@ type TgMessage = {
 type TgUpdate = {
   update_id: number;
   message?: TgMessage;
+  callback_query?: TgCallbackQuery;
 };
 
 type ReplyMenu = {
@@ -274,6 +276,11 @@ async function handleBusinessStep(
 }
 
 export async function handleTelegramUpdate(update: TgUpdate) {
+  if (update.callback_query) {
+    await handleModerationCallback(update.callback_query);
+    return;
+  }
+
   const message = update.message;
   if (!message?.from || message.chat.type !== "private") return;
 
